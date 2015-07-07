@@ -1,67 +1,111 @@
 Docker + Wordpress
 ==================
 
-1. Intro to Docker
-------------------
-
-### Why use Docker for WordPress development?
-
- - Mount a local folder inside the container - no messing around with network shares.
-
-| Local filesystem  | Container filesystem |
-| ----------------  | -------------------- |
-| `~/wordpress_development/plugins` | `/var/www/wp-content/plugins` |
-
- - Like a VM, but faster, easier and smaller to set up new containers compared to new VMs
-
- - Consistent development environments across developers (ever had problems where one developer's PHP installation was missing some library? `php_gd` is a common one.)
-
-### VMs vs Docker under the bonnet
-
-A container is similar to a VM in a few ways:
- - The filesystem is isolated
- - Startup and shutdown 'machines' quickly and easily
-
-Containers are more lightweight than VMs:
- - Containers use **much** less disk space
- - Containers start up and shut down extremely quickly
- - Containers are generally more reusable
- - You can include a docker image in your source repository
-
-
-Compare a VM setup with Docker:
-<table>
-<tr>
-  <td>Virtual Machines</td>
-  <td>Docker Containers</td>
-</tr>
-<tr>
-  <td>
-    <img src="https://www.docker.com/sites/default/files/what-is-docker-diagram.png" />
-  </td>
-  <td>
-    <img src="https://www.docker.com/sites/default/files/what-is-vm-diagram.png" />
-  </td>
-</tr>
-</table>
-
-
-#### VM
-
-#### Container
-
-
-2. Install Boot2Docker
+1. Install Docker
 ----------------------
-**Linux users can skip this section**
 
 Docker only works inside a Linux environment. Mac and Windows users need to install Boot2Docker. But don't worry, once this is set up, using docker feels the same as using it locally.
 
-3. Install `docker-compose`
+### Mac Users
+[Install boot2docker for Mac](http://docs.docker.com/mac/step_one/)
+
+### Linux Users
+[Install docker for Linux](http://docs.docker.com/linux/step_one/)
+
+### Windows Users
+[Install boot2docker for Windows 7.1+](http://docs.docker.com/windows/step_one/)
+
+
+2. Install `docker-compose`
 ---------------------------
 
-4. Create a WordPress Container
+**Windows Users:** Unfortunately docker-compose isn't available for Windows yet. You'll need to manually set up your containers.
+
+3. Create a WordPress Container
 -------------------------------
+
+1. Clone this repository
+2. Create a new file `docker-compose.yml` and enter the following:
+
+		wordpress:
+			image: wordpress
+			links:
+				- db:mysql
+			ports:
+				- 8080:80
+
+		db:
+			image: mariadb
+			environment:
+				MYSQL_ROOT_PASSWORD: example
+
+3. If using boot2docker, run:
+
+		boot2docker ip
+
+	Copy this down, you'll need it for Step 5
+
+4. At the terminal, run:
+
+		docker-compose up
+
+	Docker will then start building the image. This may take some time, but it only needs to be done once.
+
+5. Open up the Docker VM IP address in the browser, for example
+
+		http://<boot2docker ip>:8080
+
+6. Install WordPress as usual!
+
+
+4. Mounting a local folder
+-----------------------------------------
+
+While developing a theme or plugin you will want to be able to edit the files inside the container. In this section we'll link up a folder on the local filesystem to the server's html directory. This way we can easily edit themes and plugins with our favourite editor.
+
+1. Create a new folder:
+
+		mkdir src
+
+2. Open the `docker-compose.yml` file and add a `volumes` section under the `wordpress` container
+
+		wordpress:
+			...
+			volumes:
+				- ./src:/var/www/html
+		...
+
+3. Once again run:
+
+		docker-compose up
+
+4. You can copy your themes, plugins etc. into `./src/wp-content`, or edit `./src/wp-config.php`.
 
 5. Install WP-CLI
 -----------------
+
+In this section we will customise the image used to start new WordPress containers. First let's have a look at official WordPress docker image.
+
+1. Take a look at the [official WordPress Dockerfile](https://github.com/docker-library/wordpress/blob/master/apache/Dockerfile)
+
+	If you've set up a new Linux server to host WordPress, these commands might look pretty familiar. Notice the first line:
+
+		FROM php:5.6-apache
+
+	This means that this Dockerfile actually builds off another Dockerfile. In this way you can set up a tree of Dockerfiles as needed.
+
+2. Create a new folder:
+
+		mkdir wpcli
+
+3. Create a new file `./wpcli/Dockerfile` and fill it with the following:
+
+		FROM wordpress
+		MAINTAINER Your Name <you@website.com>
+
+		# Install WP-CLI
+		RUN apt-get install -y wget
+		RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -O /bin/wp
+		RUN chmod +x /bin/wp
+
+4. Now open a terminal inside the container
