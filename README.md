@@ -37,10 +37,10 @@ Compare a VM setup with Docker:
 </tr>
 <tr>
   <td>
-    ![VM Diagram](https://www.docker.com/sites/default/files/what-is-docker-diagram.png)
+    <img src="https://www.docker.com/sites/default/files/what-is-docker-diagram.png" />
   </td>
   <td>
-     ![Container](https://www.docker.com/sites/default/files/what-is-vm-diagram.png)
+    <img src="https://www.docker.com/sites/default/files/what-is-vm-diagram.png" />
   </td>
 </tr>
 </table>
