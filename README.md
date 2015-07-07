@@ -85,7 +85,7 @@ While developing a theme or plugin you will want to be able to edit the files in
 5. Install WP-CLI
 -----------------
 
-In this section we will customise the image used to start new WordPress containers. First let's have a look at official WordPress docker image.
+In this section we will customise the image used to start new WordPress containers by installing WP-CLI. First let's have a look at official WordPress docker image.
 
 1. Take a look at the [official WordPress Dockerfile](https://github.com/docker-library/wordpress/blob/master/apache/Dockerfile)
 
@@ -95,7 +95,7 @@ In this section we will customise the image used to start new WordPress containe
 
 	This means that this Dockerfile actually builds off another Dockerfile. In this way you can set up a tree of Dockerfiles as needed.
 
-2. Create a new folder:
+2. Create a new folder in which we'll describe the image with WP-CLI:
 
 		mkdir wpcli
 
@@ -104,6 +104,7 @@ In this section we will customise the image used to start new WordPress containe
 		FROM wordpress
 
 		# Install WP-CLI
+		RUN apt-get update
 		RUN apt-get install -y wget
 		RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -O /bin/wp
 		RUN chmod +x /bin/wp
@@ -116,6 +117,11 @@ In this section we will customise the image used to start new WordPress containe
 
 		build: ./wpcli
 
-5. Once again run
+5. Build and start the new containers
 
 		docker-compose up
+
+6. Now you can start a new wordpress container running a terminal:
+
+		docker-compose run wordpress bash
+		wp --allow-root post list
