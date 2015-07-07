@@ -29,10 +29,22 @@ Containers are more lightweight than VMs:
  - You can include a docker image in your source repository
 
 
-Let's a VM setup with Docker:
-| Virtual Machines | Docker Containers |
-| ---------------- | ----------------- |
-| ![VM Diagram](https://www.docker.com/sites/default/files/what-is-docker-diagram.png) | ![Container](https://www.docker.com/sites/default/files/what-is-vm-diagram.png) |
+Compare a VM setup with Docker:
+<table>
+<tr>
+  <td>Virtual Machines</td>
+  <td>Docker Containers</td>
+</tr>
+<tr>
+  <td>
+    ![VM Diagram](https://www.docker.com/sites/default/files/what-is-docker-diagram.png)
+  </td>
+  <td>
+     ![Container](https://www.docker.com/sites/default/files/what-is-vm-diagram.png)
+  </td>
+</tr>
+</table>
+
 
 #### VM
 
