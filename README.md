@@ -26,7 +26,8 @@ Docker only works inside a Linux environment. Mac and Windows users need to inst
 3. Create a WordPress Container
 -------------------------------
 
-1. Clone this repository
+1. Create a new folder in your user directory or just clone this repository.
+
 2. Create a new file `docker-compose.yml` and enter the following:
 
 		wordpress:
