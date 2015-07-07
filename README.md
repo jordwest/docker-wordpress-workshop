@@ -81,6 +81,7 @@ While developing a theme or plugin you will want to be able to edit the files in
 
 4. You can copy your themes, plugins etc. into `./src/wp-content`, or edit `./src/wp-config.php`.
 
+
 5. Install WP-CLI
 -----------------
 
@@ -101,11 +102,20 @@ In this section we will customise the image used to start new WordPress containe
 3. Create a new file `./wpcli/Dockerfile` and fill it with the following:
 
 		FROM wordpress
-		MAINTAINER Your Name <you@website.com>
 
 		# Install WP-CLI
 		RUN apt-get install -y wget
 		RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -O /bin/wp
 		RUN chmod +x /bin/wp
 
-4. Now open a terminal inside the container
+4. Inside `docker-wordpress.yml`, change the following line
+
+		image: wordpress
+
+	to:
+
+		build: ./wpcli
+
+5. Once again run
+
+		docker-compose up
