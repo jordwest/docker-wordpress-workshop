@@ -21,6 +21,8 @@ Docker only works inside a Linux environment. Mac and Windows users need to inst
 
 **Windows Users:** Unfortunately docker-compose isn't available for Windows yet. You'll need to manually set up your containers.
 
+[See the official docs for instructions](https://docs.docker.com/compose/install/)
+
 3. Create a WordPress Container
 -------------------------------
 
@@ -121,7 +123,7 @@ In this section we will customise the image used to start new WordPress containe
 
 		docker-compose up
 
-6. Now you can start a new wordpress container running a terminal:
+6. Now you can start a new WordPress container running a terminal:
 
 		docker-compose run wordpress bash
 		wp --allow-root post list
