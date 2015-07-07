@@ -10,7 +10,7 @@ Docker + Wordpress
 
 | Local filesystem  | Container filesystem |
 | ----------------  | -------------------- |
-| `~/wordpress_development/plugins` | `/var/www/wp-content/plugins/` |
+| `~/wordpress_development/plugins` | `/var/www/wp-content/plugins` |
 
  - Like a VM, but faster, easier and smaller to set up new containers compared to new VMs
 
@@ -29,12 +29,14 @@ Containers are more lightweight than VMs:
  - You can include a docker image in your source repository
 
 
-Let's look at a VM setup:
+Let's a VM setup with Docker:
+| Virtual Machines | Docker Containers |
+| ---------------- | ----------------- |
+| ![VM Diagram](https://www.docker.com/sites/default/files/what-is-docker-diagram.png) | ![Container](https://www.docker.com/sites/default/files/what-is-vm-diagram.png) |
+
 #### VM
-![VM Diagram](https://www.docker.com/sites/default/files/what-is-docker-diagram.png)
 
 #### Container
-![Container](https://www.docker.com/sites/default/files/what-is-vm-diagram.png)
 
 
 2. Install Boot2Docker
