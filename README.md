@@ -1,16 +1,16 @@
 Docker + Wordpress
 ==================
 
-1. What is Docker?
+1. Intro to Docker
 ------------------
 
 ### Why use Docker for WordPress development?
 
  - Mount a local folder inside the container - no messing around with network shares.
 
-| Local filesystem |    | Container filesystem |
-| ---------------- | -- | -------------------- |
-| `~/wordpress_development/plugins`  | <==> | `/var/www/wp-content/plugins/` |
+| Local filesystem  | Container filesystem |
+| ----------------  | -------------------- |
+| `~/wordpress_development/plugins` | `/var/www/wp-content/plugins/` |
 
  - Like a VM, but faster, easier and smaller to set up new containers compared to new VMs
 
